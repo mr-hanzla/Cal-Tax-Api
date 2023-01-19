@@ -102,6 +102,19 @@ public static class TaxService
         double yearlyIncomeAfterTax = yearlyIncome - yearlyTax;
         double monthlyIncomeAfterTax = monthlyIncome - monthlyTax;
 
+        Dictionary<string, double> taxInfo = new Dictionary<string, double>();
+        taxInfo.Add("taxPercentage", taxValue.Item1);
+        taxInfo.Add("additionalTaxAmount", taxValue.Item2);
+        taxInfo.Add("taxableAmount", taxValue.Item3);
+
+        taxInfo.Add("yearlyIncome", GetYearlyIncome(monthlyIncome));
+        taxInfo.Add("yearlyTax", (CalculatePercentage(taxableAmount, taxPercentage) + additionalTaxAmount));
+        taxInfo.Add("yearlyIncomeAfterTax", taxInfo["yearlyIncome"] - taxInfo["yearlyTax"]);
+
+        taxInfo.Add("monthlyIncome", monthlyIncome);
+        taxInfo.Add("monthlyTax", taxInfo["yearlyTax"] / 12);
+        taxInfo.Add("monthlyIncomeAfterTax", taxInfo["monthlyIncome"] - taxInfo["monthlyTax"]);
+
         Console.WriteLine("-----------------------------------------------------------------");
         Console.WriteLine($"Monthly Income: {monthlyIncome}");
         Console.WriteLine($"Monthly Tax: {monthlyTax}");
