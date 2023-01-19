@@ -3,12 +3,7 @@ namespace Cal_Tax_Api.Services;
 
 public static class TaxService
 {
-    static TaxService()
-    {
-
-    }
-
-    public static string? GetTaxInfo()
+    public static string GetTaxInfo()
     {
         /*
                     [YEAR 2022-2023]
@@ -20,35 +15,35 @@ public static class TaxService
         6) 6,000,000 < salary <= 12,000,000 --> 1,005,000 + 32.5%
         7) 12,000,000 < salary              --> 2,955,000 + 35.0%
         */
-        return null;
+        return "null";
     }
 
-    public static Tuple<double, double> GetTaxValuesForYearlyIncome(double yearlyIncome)
+    private static Tuple<double, double, double> GetTaxValuesForYearlyIncome(double yearlyIncome)
     {
         // Item1 ==> percentage of tax
         // Item2 ==> additional amount on income
         if (0 < yearlyIncome && yearlyIncome <= 600000)
-            return Tuple.Create(0.0, 0.0);
+            return Tuple.Create(0.0, 0.0, yearlyIncome - 0.0);
         else if (600000 < yearlyIncome && yearlyIncome <= 1200000)
-            return Tuple.Create(2.5, 0.0);
+            return Tuple.Create(2.5, 0.0, yearlyIncome - 600000.0);
         else if (1200000 < yearlyIncome && yearlyIncome <= 2400000.0)
-            return Tuple.Create(12.5, 15000.0);
+            return Tuple.Create(12.5, 15000.0, yearlyIncome - 1200000.0);
         else if (2400000 < yearlyIncome && yearlyIncome <= 3600000)
-            return Tuple.Create(12.5, 165000.0);
+            return Tuple.Create(12.5, 165000.0, yearlyIncome - 2400000.0);
         else if (3600000 < yearlyIncome && yearlyIncome <= 6000000)
-            return Tuple.Create(12.5, 400000.0);
-        else if (6000000 < yearlyIncome && yearlyIncome <= 1005000)
-            return Tuple.Create(12.5, 1005000.0);
+            return Tuple.Create(12.5, 400000.0, yearlyIncome - 3600000.0);
+        else if (6000000 < yearlyIncome && yearlyIncome <= 12000000)
+            return Tuple.Create(12.5, 1005000.0, yearlyIncome - 6000000.0);
         else
-            return Tuple.Create(35.0, 2955000.0);
+            return Tuple.Create(35.0, 2955000.0, yearlyIncome - 12000000.0);
     }
 
-    public static Tuple<double, double> GetTaxValuesForMonthlyIncome(double monthlyIncome)
+    private static Tuple<double, double, double> GetTaxValuesForMonthlyIncome(double monthlyIncome)
     {
         return GetTaxValuesForYearlyIncome(GetYearlyIncome(monthlyIncome));
     }
 
-    public static double CalculatePercentage(double val, double percentage)
+    private static double CalculatePercentage(double val, double percentage)
     {
         return val * (percentage / 100);
     }
@@ -60,9 +55,16 @@ public static class TaxService
         // in the returned tuple,
         // Item1 ==> percentage of tax
         // Item2 ==> additional amount of tax
-        Tuple<double, double> taxValue = GetTaxValuesForMonthlyIncome(monthlyIncome);
+        // Item3 ==> taxable amount
+        Tuple<double, double, double> taxValue = GetTaxValuesForMonthlyIncome(monthlyIncome);
 
-        return CalculatePercentage(monthlyIncome, taxValue.Item1) + taxValue.Item2;
+        double taxPercentage = taxValue.Item1;
+        double additionalTaxAmount = taxValue.Item2;
+        double taxableAmount = taxValue.Item3;
+
+        Console.WriteLine($"Returned Tuple: {taxValue}");
+
+        return (CalculatePercentage(taxableAmount, taxPercentage) + additionalTaxAmount) / 12;
     }
 
     public static double GetMonthlyIncomeAfterTax(double monthlyIncome)
@@ -75,7 +77,7 @@ public static class TaxService
         return 0.0;
     }
 
-    public static double GetYearlyIncome(double monthlyIncome)
+    private static double GetYearlyIncome(double monthlyIncome)
     {
         return monthlyIncome * 12;
     }
