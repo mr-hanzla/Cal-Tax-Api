@@ -96,7 +96,10 @@ public static class TaxService
         taxInfo.Add("taxableAmount", taxValue.Item3);
 
         taxInfo.Add("yearlyIncome", GetYearlyIncome(monthlyIncome));
-        taxInfo.Add("yearlyTax", (CalculatePercentage(taxableAmount, taxPercentage) + additionalTaxAmount));
+        taxInfo.Add("yearlyTax", (CalculatePercentage(
+            taxInfo["taxableAmount"],
+            taxInfo["taxPercentage"]) + taxInfo["additionalTaxAmount"]
+            ));
         taxInfo.Add("yearlyIncomeAfterTax", taxInfo["yearlyIncome"] - taxInfo["yearlyTax"]);
 
         taxInfo.Add("monthlyIncome", monthlyIncome);
