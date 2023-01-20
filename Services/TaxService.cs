@@ -90,18 +90,6 @@ public static class TaxService
         // Item3 ==> taxable amount
         Tuple<double, double, double> taxValue = GetTaxValuesForMonthlyIncome(monthlyIncome);
 
-        double taxPercentage = taxValue.Item1;
-        double additionalTaxAmount = taxValue.Item2;
-        double taxableAmount = taxValue.Item3;
-
-        double yearlyTax = (CalculatePercentage(taxableAmount, taxPercentage) + additionalTaxAmount);
-        double monthlyTax = yearlyTax / 12;
-
-        double yearlyIncome = GetYearlyIncome(monthlyIncome);
-
-        double yearlyIncomeAfterTax = yearlyIncome - yearlyTax;
-        double monthlyIncomeAfterTax = monthlyIncome - monthlyTax;
-
         Dictionary<string, double> taxInfo = new Dictionary<string, double>();
         taxInfo.Add("taxPercentage", taxValue.Item1);
         taxInfo.Add("additionalTaxAmount", taxValue.Item2);
@@ -114,17 +102,5 @@ public static class TaxService
         taxInfo.Add("monthlyIncome", monthlyIncome);
         taxInfo.Add("monthlyTax", taxInfo["yearlyTax"] / 12);
         taxInfo.Add("monthlyIncomeAfterTax", taxInfo["monthlyIncome"] - taxInfo["monthlyTax"]);
-
-        Console.WriteLine("-----------------------------------------------------------------");
-        Console.WriteLine($"Monthly Income: {monthlyIncome}");
-        Console.WriteLine($"Monthly Tax: {monthlyTax}");
-        Console.WriteLine($"Monthly Income After tax: {monthlyIncomeAfterTax}");
-        Console.WriteLine($"Yearly Income: {yearlyIncome}");
-        Console.WriteLine($"Yearly Tax: {yearlyTax}");
-        Console.WriteLine($"Yearly Income After Tax: {yearlyIncomeAfterTax}");
-        Console.WriteLine($"Tax Percentage: {taxPercentage}");
-        Console.WriteLine($"Additional Tax Amount: {additionalTaxAmount}");
-        Console.WriteLine($"Taxable Amount: {taxableAmount}");
-        Console.WriteLine("-----------------------------------------------------------------");
     }
 }
