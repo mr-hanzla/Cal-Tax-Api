@@ -29,11 +29,11 @@ public static class TaxService
         else if (1200000 < yearlyIncome && yearlyIncome <= 2400000.0)
             return Tuple.Create(12.5, 15000.0, yearlyIncome - 1200000.0);
         else if (2400000 < yearlyIncome && yearlyIncome <= 3600000)
-            return Tuple.Create(12.5, 165000.0, yearlyIncome - 2400000.0);
+            return Tuple.Create(20.0, 165000.0, yearlyIncome - 2400000.0);
         else if (3600000 < yearlyIncome && yearlyIncome <= 6000000)
-            return Tuple.Create(12.5, 400000.0, yearlyIncome - 3600000.0);
+            return Tuple.Create(25.0, 400000.0, yearlyIncome - 3600000.0);
         else if (6000000 < yearlyIncome && yearlyIncome <= 12000000)
-            return Tuple.Create(12.5, 1005000.0, yearlyIncome - 6000000.0);
+            return Tuple.Create(32.5, 1005000.0, yearlyIncome - 6000000.0);
         else
             return Tuple.Create(35.0, 2955000.0, yearlyIncome - 12000000.0);
     }
