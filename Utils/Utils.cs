@@ -16,4 +16,24 @@ public static class Util
     {
         return 16516.51651;
     }
+
+    public static void show(int val, string msg="")
+    {
+        Console.WriteLine($"{msg}{val}");
+    }
+
+    public static void show(float val, string msg="")
+    {
+        Console.WriteLine($"{msg}{val}");
+    }
+
+    public static void show(double val, string msg="")
+    {
+        Console.WriteLine($"{msg}{val}");
+    }
+
+    public static void show(string val, string msg="")
+    {
+        Console.WriteLine($"{msg}{val}");
+    }
 }
