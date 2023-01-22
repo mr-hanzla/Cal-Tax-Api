@@ -12,11 +12,6 @@ public static class Util
         return monthlyIncome * 12;
     }
 
-    public static double TestingMethod()
-    {
-        return 16516.51651;
-    }
-
     public static void show(int val, string msg="")
     {
         Console.WriteLine($"{msg}{val}");

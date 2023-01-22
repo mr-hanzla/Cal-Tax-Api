@@ -4,10 +4,6 @@ namespace Cal_Tax_Api.Services;
 
 public static class TaxInfoService
 {
-    public static string TestingMethod()
-    {
-        return $"Util is also working with value '{Util.TestingMethod()}' YAHOOOOO~~~!!!!";
-    }
     public static string GetTaxInfo()
     {
         /*
@@ -48,8 +44,6 @@ public static class TaxInfoService
         return GetTaxValuesForYearlyIncome(Util.GetYearlyIncome(monthlyIncome));
     }
 
-    
-
     public static double GetTaxAmountForMonthlyIncome(double monthlyIncome)
     {
         if (monthlyIncome < 0)
@@ -86,22 +80,6 @@ public static class TaxInfoService
         // Item2 ==> additional amount of tax
         // Item3 ==> taxable amount
         Tuple<double, double, double> taxValue = GetTaxValuesForMonthlyIncome(monthlyIncome);
-
-        Dictionary<string, double> taxInfoDict = new Dictionary<string, double>();
-        taxInfoDict.Add("taxPercentage", taxValue.Item1);
-        taxInfoDict.Add("additionalTaxAmount", taxValue.Item2);
-        taxInfoDict.Add("taxableAmount", taxValue.Item3);
-
-        taxInfoDict.Add("yearlyIncome", Util.GetYearlyIncome(monthlyIncome));
-        taxInfoDict.Add("yearlyTax", (Util.CalculatePercentage(
-            taxInfoDict["taxableAmount"],
-            taxInfoDict["taxPercentage"]) + taxInfoDict["additionalTaxAmount"]
-            ));
-        taxInfoDict.Add("yearlyIncomeAfterTax", taxInfoDict["yearlyIncome"] - taxInfoDict["yearlyTax"]);
-
-        taxInfoDict.Add("monthlyIncome", monthlyIncome);
-        taxInfoDict.Add("monthlyTax", taxInfoDict["yearlyTax"] / 12);
-        taxInfoDict.Add("monthlyIncomeAfterTax", taxInfoDict["monthlyIncome"] - taxInfoDict["monthlyTax"]);
 
         TaxInfo taxInfo = new TaxInfo();
 
