@@ -1,7 +1,7 @@
 
 namespace Cal_Tax_Api.Services;
 
-public static class TaxService
+public static class TaxInfoService
 {
     public static string GetTaxInfo()
     {
