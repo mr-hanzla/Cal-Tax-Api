@@ -1,8 +1,13 @@
-
+using Cal_Tax_Api.Utils;
+using Cal_Tax_Api.Models;
 namespace Cal_Tax_Api.Services;
 
 public static class TaxInfoService
 {
+    public static string TestingMethod()
+    {
+        return $"Util is also working with value '{Util.TestingMethod()}' YAHOOOOO~~~!!!!";
+    }
     public static string GetTaxInfo()
     {
         /*
@@ -40,13 +45,10 @@ public static class TaxInfoService
 
     private static Tuple<double, double, double> GetTaxValuesForMonthlyIncome(double monthlyIncome)
     {
-        return GetTaxValuesForYearlyIncome(GetYearlyIncome(monthlyIncome));
+        return GetTaxValuesForYearlyIncome(Util.GetYearlyIncome(monthlyIncome));
     }
 
-    private static double CalculatePercentage(double val, double percentage)
-    {
-        return val * (percentage / 100);
-    }
+    
 
     public static double GetTaxAmountForMonthlyIncome(double monthlyIncome)
     {
@@ -64,7 +66,7 @@ public static class TaxInfoService
 
         Console.WriteLine($"Returned Tuple: {taxValue}");
 
-        return (CalculatePercentage(taxableAmount, taxPercentage) + additionalTaxAmount) / 12;
+        return (Util.CalculatePercentage(taxableAmount, taxPercentage) + additionalTaxAmount) / 12;
     }
 
     public static double GetMonthlyIncomeAfterTax(double monthlyIncome)
@@ -77,12 +79,7 @@ public static class TaxInfoService
         return 0.0;
     }
 
-    private static double GetYearlyIncome(double monthlyIncome)
-    {
-        return monthlyIncome * 12;
-    }
-
-    public static void GetAllTaxRelatedValues(double monthlyIncome)
+    public static TaxInfo GetAllTaxRelatedValues(double monthlyIncome)
     {
         // in the returned tuple,
         // Item1 ==> percentage of tax
@@ -90,20 +87,36 @@ public static class TaxInfoService
         // Item3 ==> taxable amount
         Tuple<double, double, double> taxValue = GetTaxValuesForMonthlyIncome(monthlyIncome);
 
-        Dictionary<string, double> taxInfo = new Dictionary<string, double>();
-        taxInfo.Add("taxPercentage", taxValue.Item1);
-        taxInfo.Add("additionalTaxAmount", taxValue.Item2);
-        taxInfo.Add("taxableAmount", taxValue.Item3);
+        Dictionary<string, double> taxInfoDict = new Dictionary<string, double>();
+        taxInfoDict.Add("taxPercentage", taxValue.Item1);
+        taxInfoDict.Add("additionalTaxAmount", taxValue.Item2);
+        taxInfoDict.Add("taxableAmount", taxValue.Item3);
 
-        taxInfo.Add("yearlyIncome", GetYearlyIncome(monthlyIncome));
-        taxInfo.Add("yearlyTax", (CalculatePercentage(
-            taxInfo["taxableAmount"],
-            taxInfo["taxPercentage"]) + taxInfo["additionalTaxAmount"]
+        taxInfoDict.Add("yearlyIncome", Util.GetYearlyIncome(monthlyIncome));
+        taxInfoDict.Add("yearlyTax", (Util.CalculatePercentage(
+            taxInfoDict["taxableAmount"],
+            taxInfoDict["taxPercentage"]) + taxInfoDict["additionalTaxAmount"]
             ));
-        taxInfo.Add("yearlyIncomeAfterTax", taxInfo["yearlyIncome"] - taxInfo["yearlyTax"]);
+        taxInfoDict.Add("yearlyIncomeAfterTax", taxInfoDict["yearlyIncome"] - taxInfoDict["yearlyTax"]);
 
-        taxInfo.Add("monthlyIncome", monthlyIncome);
-        taxInfo.Add("monthlyTax", taxInfo["yearlyTax"] / 12);
-        taxInfo.Add("monthlyIncomeAfterTax", taxInfo["monthlyIncome"] - taxInfo["monthlyTax"]);
+        taxInfoDict.Add("monthlyIncome", monthlyIncome);
+        taxInfoDict.Add("monthlyTax", taxInfoDict["yearlyTax"] / 12);
+        taxInfoDict.Add("monthlyIncomeAfterTax", taxInfoDict["monthlyIncome"] - taxInfoDict["monthlyTax"]);
+
+        TaxInfo taxInfo = new TaxInfo();
+
+        taxInfo.TaxPercentage = taxValue.Item1;
+        taxInfo.AdditionalTaxAmount = taxValue.Item2;
+        taxInfo.TaxableAmount = taxValue.Item3;
+
+        taxInfo.YearlyIncome = Util.GetYearlyIncome(monthlyIncome);
+        taxInfo.YearlyTax = Util.CalculatePercentage(taxInfo.TaxableAmount, taxInfo.TaxPercentage) + taxInfo.AdditionalTaxAmount;
+        taxInfo.YearlyIncomeAfterTax = taxInfo.YearlyIncome - taxInfo.YearlyTax;
+
+        taxInfo.MonthlyIncome = monthlyIncome;
+        taxInfo.MonthlyTax = taxInfo.YearlyTax / 12;
+        taxInfo.MonthlyIncomeAfterTax = taxInfo.MonthlyIncome - taxInfo.MonthlyTax;
+
+        return taxInfo;
     }
 }
