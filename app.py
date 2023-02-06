@@ -1,8 +1,11 @@
 import flask
 from flask import request, jsonify
+from mathematics import math_me
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+
+app.register_blueprint(math_me.math_me_bp)
 
 # Create some test data for our catalog in the form of a list of dictionaries.
 books = [
