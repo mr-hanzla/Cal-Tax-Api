@@ -33,6 +33,19 @@ def home():
 <p>A prototype API for distant reading of science fiction novels.</p>'''
 
 
+@app.route('/owner', methods=['GET'])
+def owner():
+    return '''
+    <h1>Hanzy B-) </h1>
+    '''
+
+@app.route('/<name>')
+def greet(name):
+    return f'''
+    <h1>Salam, {name.capitalize()}. Kia haal chaal hy?</h1>
+
+    '''
+
 # A route to return all of the available entries in our catalog.
 @app.route('/api/v1/resources/books/all', methods=['GET'])
 def api_all():
