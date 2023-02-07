@@ -52,7 +52,8 @@ def routes():
         '/<name>',
         '/owner',
         '/api/v1/resources/books/all',
-        '/math'
+        '/math',
+        '/math/formula/quadratic'
         ])
 
 # A route to return all of the available entries in our catalog.
