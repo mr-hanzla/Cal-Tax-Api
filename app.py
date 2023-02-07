@@ -48,13 +48,12 @@ def greet(name):
 
 @app.route('/routes')
 def routes():
-    a = [
+    return jsonify([
         '/<name>',
         '/owner',
         '/api/v1/resources/books/all',
         '/math'
-        ]
-    return jsonify(a)
+        ])
 
 # A route to return all of the available entries in our catalog.
 @app.route('/api/v1/resources/books/all', methods=['GET'])
