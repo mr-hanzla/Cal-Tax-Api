@@ -33,6 +33,11 @@ def home():
 <p>A prototype API for distant reading of science fiction novels.</p>'''
 
 
+@app.route('/header')
+def header_testing():
+    math_me.show_msg(request.headers)
+    return 'OK, Header sahi kaam kar rha hy.....'
+
 @app.route('/owner', methods=['GET'])
 def owner():
     return '''
