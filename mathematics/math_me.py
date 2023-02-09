@@ -1,4 +1,3 @@
-import os
 from flask import Blueprint, abort, request, jsonify
 from jinja2 import TemplateNotFound
 
@@ -28,9 +27,3 @@ def quadratic_formula():
         return abort(404, 'Yaaaar!, bongia na mara karo! [a,b,c] ki values pass karo')
 
     return 'OK'
-
-
-def show_msg(msg):
-    print('*'*50)
-    print(msg)
-    print('*'*50)
