@@ -31,7 +31,7 @@ def get_books():
 
 def get_routes():
     return [
-        '/routes'
+        '/routes',
         '/greet/<name>',
         '/owner',
         '/manager',
