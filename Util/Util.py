@@ -31,11 +31,14 @@ def get_books():
 
 def get_routes():
     return [
-        '/<name>',
+        '/routes'
+        '/greet/<name>',
         '/owner',
+        '/manager',
         '/api/v1/resources/books/all',
         '/math',
         '/math/formula/quadratic',
-        'math/circle/area',
-        '/header'
+        '/math/circle/area',
+        '/header',
+        '/person/greet/<name>'
     ]

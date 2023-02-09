@@ -24,11 +24,12 @@ def header_testing():
 
 
 @app.route('/owner', methods=['GET'])
+@app.route('/manager', methods=['GET'])
 def owner():
     return '''<h1>Hanzy 😎 </h1>'''
 
 
-@app.route('/<name>')
+@app.route('/greet/<name>')
 def greet(name):
     return f'''<h1>Salam, {name.capitalize()}. Kia haal chaal hy?</h1>'''
 
