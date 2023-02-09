@@ -11,30 +11,10 @@ app.register_blueprint(math_me.math_me_bp)
 
 app.register_blueprint(person.person)
 
-# Create some test data for our catalog in the form of a list of dictionaries.
-books = [
-    {'id': 0,
-     'title': 'A Fire Upon the Deep',
-     'author': 'Vernor Vinge',
-     'first_sentence': 'The coldsleep itself was dreamless.',
-     'year_published': '1992'},
-    {'id': 1,
-     'title': 'The Ones Who Walk Away From Omelas',
-     'author': 'Ursula K. Le Guin',
-     'first_sentence': 'With a clamor of bells that set the swallows soaring, the Festival of Summer came to the city Omelas, bright-towered by the sea.',
-     'published': '1973'},
-    {'id': 2,
-     'title': 'Dhalgren',
-     'author': 'Samuel R. Delany',
-     'first_sentence': 'to wound the autumnal city.',
-     'published': '1975'}
-]
-
-
 @app.route('/', methods=['GET'])
 def home():
-    return '''<h1>Distant Reading Archive</h1>
-<p>A prototype API for distant reading of science fiction novels.</p>'''
+    return '''<h1>Gee aya no! 😊</h1>
+<p>Saare available routes dekhny k liye IP k aage '/routes' add kardo</p>'''
 
 
 @app.route('/header')
@@ -42,35 +22,25 @@ def header_testing():
     Util.cshow(request.headers)
     return 'OK, Header sahi kaam kar rha hy.....'
 
+
 @app.route('/owner', methods=['GET'])
 def owner():
-    return '''
-    <h1>Hanzy B-) </h1>
-    '''
+    return '''<h1>Hanzy 😎 </h1>'''
+
 
 @app.route('/<name>')
 def greet(name):
-    return f'''
-    <h1>Salam, {name.capitalize()}. Kia haal chaal hy?</h1>
+    return f'''<h1>Salam, {name.capitalize()}. Kia haal chaal hy?</h1>'''
 
-    '''
 
 @app.route('/routes')
 def routes():
-    return jsonify([
-        '/<name>',
-        '/owner',
-        '/api/v1/resources/books/all',
-        '/math',
-        '/math/formula/quadratic',
-        'math/circle/area',
-        '/header'
-        ])
+    return jsonify(Util.get_routes())
 
-# A route to return all of the available entries in our catalog.
+
 @app.route('/api/v1/resources/books/all', methods=['GET'])
 def api_all():
-    return jsonify(books)
+    return jsonify(Util.get_books())
 
 
 if __name__ == '__main__':
