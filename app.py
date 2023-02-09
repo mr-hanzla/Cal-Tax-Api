@@ -1,6 +1,7 @@
 import flask
 from flask import request, jsonify
 from mathematics import math_me
+from Util import Util
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -35,7 +36,7 @@ def home():
 
 @app.route('/header')
 def header_testing():
-    math_me.show_msg(request.headers)
+    Util.cshow(request.headers)
     return 'OK, Header sahi kaam kar rha hy.....'
 
 @app.route('/owner', methods=['GET'])
@@ -59,7 +60,7 @@ def routes():
         '/api/v1/resources/books/all',
         '/math',
         '/math/formula/quadratic',
-        'math//circle/area',
+        'math/circle/area',
         '/header'
         ])
 
