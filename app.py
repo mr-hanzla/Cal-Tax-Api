@@ -2,13 +2,14 @@ import flask
 from flask import request, jsonify
 from mathematics import math_me
 from general import person
+from finance import cal_tax
 from Util import Util
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
+app.register_blueprint(cal_tax.cal_tax)
 app.register_blueprint(math_me.math_me_bp)
-
 app.register_blueprint(person.person)
 
 @app.route('/', methods=['GET'])
