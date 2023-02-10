@@ -4,6 +4,9 @@ def cshow(msg):
     print(msg)
     print('*'*50)
 
+def get_in_h_tag(val, tag_number):
+    return f'<h{tag_number}>{val}</h{tag_number}>'
+
 def get_books():
     return [
         {
@@ -32,6 +35,7 @@ def get_books():
 def get_routes():
     return [
         '/routes',
+        '/tax',
         '/greet/<name>',
         '/owner',
         '/manager',
