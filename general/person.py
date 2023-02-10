@@ -1,7 +1,8 @@
 from flask import Blueprint
+from Util import Util
 
 person = Blueprint('person', __name__, url_prefix='/person')
 
 @person.route('/greet/<name>')
 def greet(name):
-    return f'<h1>Assalam o Alaikum, {name.capitalize()}!</h1>'
+    return Util.get_in_h_tag(f'<h1>Assalam o Alaikum, {name.capitalize()}!</h1>', 1)
