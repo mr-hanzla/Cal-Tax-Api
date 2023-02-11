@@ -1,7 +1,7 @@
 from flask import Blueprint
-from Util import Util
+from Util import Util, Constant
 
-person = Blueprint('person', __name__, url_prefix='/person')
+person = Blueprint('person', __name__, url_prefix=f'{Constant.API_V1}/person')
 
 @person.route('/greet/<name>')
 def greet(name):
