@@ -1,12 +1,14 @@
 from flask import Blueprint, abort, request, jsonify
-from jinja2 import TemplateNotFound
 from Util import Constant
 
-math_me_bp = Blueprint('math_me', __name__, url_prefix=f'{Constant.API_V1}/math')
+math_me_bp = Blueprint('math_me', __name__,
+                       url_prefix=f'{Constant.API_V1}/math')
+
 
 @math_me_bp.route('/')
 def show():
-    return "Yayyyy, bluepring is working fine!"
+    return "Yayyyy, blueprint is working fine!"
+
 
 @math_me_bp.route('/circle/area')
 def area_of_circle():

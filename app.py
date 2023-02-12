@@ -12,6 +12,7 @@ app.register_blueprint(cal_tax.cal_tax)
 app.register_blueprint(math_me.math_me_bp)
 app.register_blueprint(person.person)
 
+
 @app.route('/', methods=['GET'])
 def home():
     return '''<h1>Gee aya no! 😊</h1>
