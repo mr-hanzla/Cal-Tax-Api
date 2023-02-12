@@ -1,3 +1,4 @@
+import math
 
 
 def get_tax_values_against_yearly_income(yearly_income):
@@ -47,4 +48,9 @@ def get_tax_values_against_yearly_income(yearly_income):
         additional_tax_amount = 2955000
         taxable_amount = yearly_income - 12000000
 
-    return (tax_percentage, additional_tax_amount, taxable_amount)
+    return tax_percentage, additional_tax_amount, taxable_amount
+
+
+def get_yearly_tax_amount(tax_percentage, additional_yearly_tax_amount, yearly_taxable_income):
+    return math.ceil(additional_yearly_tax_amount + (yearly_taxable_income * (tax_percentage / 100)))
+
