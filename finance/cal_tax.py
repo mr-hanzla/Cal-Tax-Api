@@ -48,8 +48,15 @@ def calculate_tax_on_monthly_income():
 
     yearly_income_after_tax = yearly_income - yearly_tax_amount
 
+    monthly_income_after_tax = yearly_income_after_tax / 12
+    monthly_tax_amount = yearly_tax_amount / 12
+    monthly_taxable_income = yearly_taxable_income / 12
+
     return jsonify({
         'monthly_income': monthly_income,
+        'monthly_income_after_tax': monthly_income_after_tax,
+        'monthly_tax_amount': monthly_tax_amount,
+        'monthly_taxable_income': monthly_taxable_income,
         'yearly_income': yearly_income,
         'yearly_income_after_tax': yearly_income_after_tax,
         'yearly_tax_amount': yearly_tax_amount,
