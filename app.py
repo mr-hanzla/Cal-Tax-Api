@@ -1,5 +1,5 @@
 import flask
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 from mathematics import math_me
 from general import person
 from finance import cal_tax
@@ -17,6 +17,10 @@ app.register_blueprint(person.person)
 def home():
     return '''<h1>Gee aya no! 😊</h1>
 <p>Saare available routes dekhny k liye IP k aage '/routes' add kardo</p>'''
+
+@app.route('/resume')
+def resume():
+    return render_template('resume.html')
 
 
 @app.route('/header')
