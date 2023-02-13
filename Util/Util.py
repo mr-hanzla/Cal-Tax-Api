@@ -37,15 +37,18 @@ def get_books():
 
 def get_routes():
     return [
-        '/routes',
-        '/tax',
-        '/greet/<name>',
-        '/owner',
-        '/manager',
-        '/api/v1/resources/books/all',
-        '/math',
-        '/math/formula/quadratic',
-        '/math/circle/area',
+        '/api/v1/finance/',
+        '/api/v1/finance/cal-tax',
+        '/api/v1/math/',
+        '/api/v1/math/circle/area',
+        '/api/v1/math/formula/quadratic',
+        '/api/v1/person/greet/<name>',
+        '/',
+        '/resume',
         '/header',
-        '/person/greet/<name>'
+        '/manager',
+        '/owner',
+        '/greet/<name>',
+        '/routes',
+        '/api/v1/resources/books/all'
     ]
